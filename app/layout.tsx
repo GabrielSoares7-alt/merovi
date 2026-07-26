@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://merovi.digital"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Merovi — tecnologia digital premium para o seu negócio",
     template: "%s — Merovi",
