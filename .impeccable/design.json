@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-26T07:55:00.000Z",
+  "title": "Design System: Merovi",
+  "extensions": {
+    "colorMeta": {
+      "void-black": { "role": "neutral", "displayName": "Void Black", "canonical": "#0a0a0a", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#1f1f1f", "#333333", "#5c5c5c", "#8a8a8a", "#ffffff"] },
+      "charcoal-surface": { "role": "neutral", "displayName": "Charcoal Surface", "canonical": "#1a1a1a", "tonalRamp": ["#000000", "#0a0a0a", "#1a1a1a", "#2a2a2a", "#404040", "#666666", "#999999", "#ffffff"] },
+      "radiant-white": { "role": "primary", "displayName": "Radiant White", "canonical": "#ffffff", "tonalRamp": ["#0a0a0a", "#333333", "#666666", "#999999", "#cccccc", "#e6e6e6", "#f5f5f5", "#ffffff"] },
+      "quiet-gray": { "role": "neutral", "displayName": "Quiet Gray", "canonical": "#8a8a8a", "tonalRamp": ["#1a1a1a", "#333333", "#4d4d4d", "#666666", "#8a8a8a", "#a3a3a3", "#c2c2c2", "#e6e6e6"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page and section titles; only role allowed the headline glow." },
+      "body": { "displayName": "Body", "purpose": "Paragraph copy and nav links at rest." },
+      "label": { "displayName": "Label", "purpose": "Button and form control text." }
+    },
+    "shadows": [
+      { "name": "cta-glow-rest", "value": "0 0 20px rgba(255,255,255,0.28)", "purpose": "Primary button resting halo." },
+      { "name": "cta-glow-hover", "value": "0 0 36px rgba(255,255,255,0.5)", "purpose": "Primary button hover bloom." },
+      { "name": "card-lift-hover", "value": "0 16px 40px -16px rgba(0,0,0,0.65), 0 0 24px rgba(255,255,255,0.08)", "purpose": "Card hover elevation + faint accent glow." },
+      { "name": "headline-glow", "value": "0 0 24px rgba(255,255,255,0.35)", "purpose": "text-shadow for .glow-text on emphasized headlines and the logo wordmark." },
+      { "name": "logo-mark-glow", "value": "drop-shadow(0 0 10px rgba(255,255,255,0.35))", "purpose": "filter: drop-shadow for the transparent-PNG logo mark (.glow-drop) — box-shadow would produce a rectangular halo on the alpha shape." },
+      { "name": "3d-monogram-glow", "value": "meshStandardMaterial: emissive #ffffff, emissiveIntensity 1.4, toneMapped false", "purpose": "Hero's extruded logo mesh — emissive output bypasses tone mapping so it reads radiant white instead of PBR-shaded gray." },
+      { "name": "hero-ray-glow", "value": "drop-shadow(0 0 5px #fff) drop-shadow(0 0 22px #fff) drop-shadow(0 0 48px #fff) drop-shadow(0 0 90px #fff), alphas 1/0.95/0.7/0.4", "purpose": "4-layer glow stack on the hero's lightning-bolt SVG rays for real intensity matching the monogram/CTA." }
+    ],
+    "motion": [
+      { "name": "interactive-spring", "value": "type: spring, stiffness: 420, damping: 26", "purpose": "Framer Motion hover/tap scale on buttons (1.03 / 0.97)." },
+      { "name": "card-lift-spring", "value": "type: spring, stiffness: 300, damping: 24", "purpose": "Framer Motion hover lift + shadow on cards (y: -4)." },
+      { "name": "scroll-reveal", "value": "GSAP ScrollTrigger, ease power3.out, duration 1s, y: 40 -> 0, opacity 0 -> 1", "purpose": "Once-per-section entrance via the shared ScrollReveal component; disabled under prefers-reduced-motion." },
+      { "name": "scroll-reveal-stagger", "value": "same as scroll-reveal, plus stagger: 0.1s between direct children", "purpose": "Repeating collections (card grids, bullet lists) reveal item-by-item instead of as one block. ScrollReveal's `as` prop controls the wrapper tag so stagger targets the right semantic children (e.g. as=\"ul\" for <li>)." },
+      { "name": "howitworks-scrub", "value": "GSAP timeline, ease: none on every tween, ScrollTrigger scrub: 1, pin: true", "purpose": "\"Como funciona\" ties animation progress directly to scroll position — ease:none avoids fighting the scrub's own scroll-to-progress mapping. Degrades to a static stacked list under prefers-reduced-motion (no pin, no scrub)." },
+      { "name": "mobile-menu-panel", "value": "clipPath: inset(0 0 100% 0) -> inset(0 0 0% 0), plus opacity, 0.25s ease-out", "purpose": "Header mobile nav panel open/close — clipPath instead of height so it never forces layout reflow." },
+      { "name": "progress-bar-fill", "value": "transform: scaleX(progress), transform-origin: left, transition-transform 0.2s", "purpose": "Request-form step progress bar — a full-width element scaled by transform instead of animating width." },
+      { "name": "hero-mark-swing", "value": "pointer.x * 0.7 / pointer.y * 0.5 lerp at 0.08, idle sway sin(t*0.4)*0.15, around a fixed resting tilt", "purpose": "3D monogram's free-but-bounded pointer response — wide enough to feel alive, never upside down or edge-on." },
+      { "name": "hero-ray-flash", "value": "keyframes 0%->0, 3%->max, 20%->25% of max, 45%->0, ease-out, 5-10s duration, randomized negative delay", "purpose": "Lightning-bolt rays flash in fast and decay, randomized per ray so only ~2-4 are lit at once." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Conversion CTA — white fill, black text, the one button variant that carries a resting glow.",
+      "html": "<button class=\"ds-btn-primary\">Solicitar meu site</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; border-radius: 9999px; padding: 12px 24px; font-size: 14px; font-weight: 600; background: #ffffff; color: #0a0a0a; box-shadow: 0 0 20px rgba(255,255,255,0.28); transition: box-shadow 0.3s, transform 0.2s; } .ds-btn-primary:hover { box-shadow: 0 0 36px rgba(255,255,255,0.5); transform: scale(1.03); } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outline variant for lower-priority actions — never carries glow.",
+      "html": "<button class=\"ds-btn-secondary\">Saiba mais</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; border-radius: 9999px; padding: 12px 24px; font-size: 14px; font-weight: 600; background: transparent; color: #ffffff; border: 1px solid rgba(255,255,255,0.25); transition: border-color 0.3s, background-color 0.3s; } .ds-btn-secondary:hover { border-color: rgba(255,255,255,0.5); background-color: rgba(255,255,255,0.05); } .ds-btn-secondary:active { transform: scale(0.97); } .ds-btn-secondary:focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Surface block for services, testimonials, etc. Flat at rest, lifts with a real offset shadow plus a faint accent glow on hover. Same primitive serves compact teaser cards (Home) and full detail blocks with a deliverables sub-list (/servicos), stacked full-width instead of gridded.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">Serviço</h3><p class=\"ds-card-body\">Descrição breve do bloco.</p></div>",
+      "css": ".ds-card { border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: #1a1a1a; padding: 24px; transition: box-shadow 0.3s, transform 0.3s; } .ds-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -16px rgba(0,0,0,0.65), 0 0 24px rgba(255,255,255,0.08); } .ds-card-title { font-size: 18px; font-weight: 600; color: #ffffff; margin: 0 0 8px; } .ds-card-body { font-size: 14px; color: #8a8a8a; margin: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Signal in the Dark",
+    "overview": "Merovi sells trust to business owners who don't speak tech and are wary of being sold a template dressed up as a website. The surface answers that with restraint: a near-black field with exactly one voice of light — a radiant white glow — that appears only on the logo, the emphasized headline, and the primary conversion action. Everything else stays quiet (white text, #8A8A8A secondary text, #1A1A1A surfaces) so the glow reads as a deliberate signal, not decoration. The register is Apple/Vercel/Linear/Stripe-tier: engineered, unhurried, zero ornament for ornament's sake.",
+    "keyCharacteristics": [
+      "Void-black field, radiant-white voice, one glow reserved for the highest-stakes elements.",
+      "Motion is physical and restrained: spring-based hover/tap on interactive elements, a single scroll-triggered reveal per section — never scattered effects.",
+      "Flat by default; depth appears only as a response to hover (card lift, button glow bloom)."
+    ],
+    "rules": [
+      { "name": "The One Glow Rule", "body": "Glow (text-shadow, box-shadow bloom, or drop-shadow) is reserved for the logo, one emphasized headline per view, and the primary CTA. A secondary button, a card, or body text never gets a glow at rest — only cards earn a soft one on hover, as a state response, not a resting decoration.", "section": "colors" },
+      { "name": "The No-Filler-Weight Rule", "body": "Only three weights are used: 400 (body), 600 (labels/titles), 700 (display). No 300 or 500 — the scale stays legible at a glance.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "No card, section, or button carries a shadow at rest except the primary CTA's quiet halo (its glow IS its resting state, by brand mandate). Every other shadow is hover-only.", "section": "elevation" },
+      { "name": "The Emissive-Not-Shaded Rule", "body": "Any 3D/WebGL element meant to read as radiant white (matching the CSS glow language) must drive that brightness through emissive + toneMapped: false, not through scene lighting alone — standard PBR shading on an extruded/faceted mesh reads as gray on faces angled away from the lights, which breaks the One Glow Rule's intent.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do reserve glow for the logo, one emphasized headline per view, and the primary CTA — everything else stays flat until hovered.",
+      "Do keep the horizontal gutter fixed (px-6) and control density with the Section vertical rhythm (py-20/md:py-28) instead.",
+      "Do use Framer Motion spring transforms (scale, y) for interactive microinteractions, and reserve GSAP ScrollTrigger for the once-per-section scroll-reveal.",
+      "Do pull nav links, CTA target, and contact info from lib/nav.ts — never hardcode a route or phone number in a component.",
+      "Do animate only transform and opacity (GSAP y/x/scale/autoAlpha, Framer Motion scale/y/rotate) so every animation stays on the compositor thread. For a growing bar, animate transform: scaleX() on a full-width element, never width. For a collapsible panel, animate clip-path, never height."
+    ],
+    "donts": [
+      "Don't introduce any hue outside the void-black/charcoal/white/gray neutral set — no accent color, no gradient, ever.",
+      "Don't nest cards inside cards, or use a rounded icon tile above every card heading.",
+      "Don't add a resting shadow or glow to a secondary button, a card, or body text — those are hover-only or forbidden entirely.",
+      "Don't use a tracked uppercase eyebrow or section numbering (01/02/03) as default section grammar.",
+      "Don't animate width, height, top, or left directly — they force layout reflow on every frame. box-shadow/background-color/border-color/filter transitions are paint-only and fine in moderation, but they're not transform/opacity either, so they only earn their place where a documented brand effect (glow, elevation, scroll blur) needs them."
+    ]
+  }
+}

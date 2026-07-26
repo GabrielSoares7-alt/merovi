@@ -1,0 +1,9 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "app/api/request-site/route.ts"
+    ],
+    "ignoreValues": []
+  }
+}
