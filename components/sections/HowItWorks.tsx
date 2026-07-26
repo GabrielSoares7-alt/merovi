@@ -7,27 +7,27 @@ import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 const STEPS = [
   {
     number: "01",
-    title: "Diagnóstico",
+    title: "Conversa inicial",
     description:
-      "Entendemos seu negócio, seu público e o que precisa aparecer no seu site para gerar confiança e contato.",
+      "Depois que você solicita seu site, falamos direto pelo WhatsApp para entender seu negócio e recomendar o pacote ideal para o seu momento.",
   },
   {
     number: "02",
-    title: "Direção e design",
+    title: "Briefing guiado",
     description:
-      "Definimos a estrutura e o visual do site, alinhados à identidade da sua marca e ao que seu cliente espera ver.",
+      "Você recebe formulários simples para reunir o que é necessário: conteúdo do site, e, conforme o pacote, informações para domínio e presença no Google.",
   },
   {
     number: "03",
-    title: "Desenvolvimento",
+    title: "Desenvolvimento e ajustes",
     description:
-      "Construímos o site com tecnologia moderna: rápido, responsivo e pronto para aparecer bem no Google.",
+      "Criamos seu site e apresentamos para revisão antes de publicar, com rodadas de ajuste incluídas.",
   },
   {
     number: "04",
-    title: "Lançamento e acompanhamento",
+    title: "Publicação e configuração final",
     description:
-      "Colocamos no ar e acompanhamos os primeiros resultados, ajustando o que for preciso.",
+      "O site vai ao ar, e conforme o pacote contratado, configuramos domínio próprio e otimização no Google Meu Negócio/Google Ads.",
   },
 ];
 
