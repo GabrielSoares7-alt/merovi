@@ -3,9 +3,10 @@ import { Section } from "@/components/ui/Section";
 import { RequestSiteForm } from "@/components/sections/RequestSiteForm";
 
 export const metadata: Metadata = {
-  title: "Solicitar meu site — Merovi",
+  title: "Solicitar meu site",
   description:
     "Conte sobre seu negócio em poucos passos e fale direto no WhatsApp para começar seu projeto com a Merovi.",
+  alternates: { canonical: "/solicitar-meu-site" },
 };
 
 export default function SolicitarMeuSitePage() {

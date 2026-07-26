@@ -6,9 +6,10 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { FinalCta } from "@/components/sections/FinalCta";
 
 export const metadata: Metadata = {
-  title: "Serviços — Merovi",
+  title: "Serviços",
   description:
     "Sites, landing pages, domínio, publicação, Google Meu Negócio e Google Ads: tudo que a Merovi entrega pra sua empresa ser encontrada e escolhida online.",
+  alternates: { canonical: "/servicos" },
 };
 
 type Service = {

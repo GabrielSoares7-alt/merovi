@@ -6,9 +6,10 @@ import { Team } from "@/components/sections/Team";
 import { FinalCta } from "@/components/sections/FinalCta";
 
 export const metadata: Metadata = {
-  title: "Quem cuida do seu projeto — Merovi",
+  title: "Quem cuida do seu projeto",
   description:
     "Conheça quem está por trás da Merovi: sem equipe grande, sem terceirização, direto com quem executa cada projeto.",
+  alternates: { canonical: "/quem-faz-seu-projeto" },
 };
 
 const WHY_DIRECT = [

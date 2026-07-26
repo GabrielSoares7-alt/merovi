@@ -16,8 +16,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Merovi",
-  description: "Merovi — tecnologia digital premium.",
+  metadataBase: new URL("https://merovi.digital"),
+  title: {
+    default: "Merovi — tecnologia digital premium para o seu negócio",
+    template: "%s — Merovi",
+  },
+  description:
+    "A Merovi cria sites institucionais e landing pages de alta conversão, com gestão de Google Ads e Google Meu Negócio, para empresas que querem ser encontradas, e escolhidas, no Google.",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Merovi",
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
