@@ -100,7 +100,7 @@ export async function POST(request: Request) {
 
   const resend = new Resend(apiKey);
   const fromAddress =
-    process.env.REQUEST_FORM_FROM_EMAIL || "Merovi <onboarding@resend.dev>";
+    process.env.REQUEST_FORM_FROM_EMAIL || "Merovi <contato@merovi.com.br>";
 
   try {
     const result = await resend.emails.send({
