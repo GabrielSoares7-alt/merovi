@@ -42,12 +42,14 @@ export function RequestSiteForm() {
   const [waUrl, setWaUrl] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
 
-  // Kept in refs (not state) so the abandonment listeners below always read
+  // Kept in a ref (not state) so the abandonment listeners below always read
   // the latest values without needing to re-subscribe on every keystroke.
+  // Updated synchronously inside update() below, NOT via a useEffect mirror
+  // — a useEffect runs after commit/paint, asynchronously relative to the
+  // change, so a pagehide/visibilitychange firing in the same tick as the
+  // last keystroke (e.g. a click that both blurs a field and navigates)
+  // could read a stale value from before that effect had run.
   const stateRef = useRef(state);
-  useEffect(() => {
-    stateRef.current = state;
-  }, [state]);
   const formSubmittedRef = useRef(false);
   const partialSentRef = useRef(false);
 
@@ -93,6 +95,7 @@ export function RequestSiteForm() {
   }, []);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
+    stateRef.current = { ...stateRef.current, [key]: value };
     setState((prev) => ({ ...prev, [key]: value }));
     setErrors((prev) => {
       if (!prev[key as string]) return prev;
