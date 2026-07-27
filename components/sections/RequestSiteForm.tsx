@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { RadioGroup } from "@/components/ui/RadioGroup";
 import { CheckboxGroup } from "@/components/ui/CheckboxGroup";
@@ -41,6 +41,56 @@ export function RequestSiteForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [waUrl, setWaUrl] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+
+  // Kept in refs (not state) so the abandonment listeners below always read
+  // the latest values without needing to re-subscribe on every keystroke.
+  const stateRef = useRef(state);
+  useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
+  const formSubmittedRef = useRef(false);
+  const partialSentRef = useRef(false);
+
+  // Partial-lead capture: if someone fills in WhatsApp and then leaves
+  // (closes the tab, switches tabs, minimizes, or navigates away) without
+  // completing the form, fire a best-effort e-mail with whatever was filled
+  // in so far. Uses sendBeacon (not fetch) because fetch requests can be
+  // cancelled mid-flight once the page starts unloading; sendBeacon is
+  // designed to survive that. visibilitychange covers tab-switch/minimize,
+  // pagehide covers tab close/navigation — together they cover all the exit
+  // paths a plain "beforeunload" would miss on mobile browsers.
+  useEffect(() => {
+    function sendPartialLeadIfEligible() {
+      if (formSubmittedRef.current || partialSentRef.current) return;
+      const current = stateRef.current;
+      if (!current.whatsapp.trim()) return;
+
+      partialSentRef.current = true;
+      if (typeof navigator.sendBeacon === "function") {
+        navigator.sendBeacon(
+          "/api/request-site/partial",
+          JSON.stringify(current),
+        );
+      }
+    }
+
+    function handleVisibilityChange() {
+      if (document.visibilityState === "hidden") {
+        sendPartialLeadIfEligible();
+      }
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pagehide", sendPartialLeadIfEligible);
+
+    return () => {
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange,
+      );
+      window.removeEventListener("pagehide", sendPartialLeadIfEligible);
+    };
+  }, []);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setState((prev) => ({ ...prev, [key]: value }));
@@ -112,6 +162,9 @@ export function RequestSiteForm() {
       return;
     }
 
+    // Set before the fetch (not after) so the navigation to WhatsApp right
+    // below — which triggers pagehide — is never mistaken for abandonment.
+    formSubmittedRef.current = true;
     setSending(true);
     try {
       await fetch("/api/request-site", {

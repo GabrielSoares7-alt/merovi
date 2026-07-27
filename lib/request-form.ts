@@ -145,6 +145,81 @@ export function resolveMultiLabel(
 }
 
 /**
+ * Partial summary for abandoned-form leads — only lists fields the visitor
+ * actually filled in, since most of the state is still blank at that point.
+ */
+export function buildPartialSummaryText(state: FormState) {
+  const lines = [
+    "Lead parcial — alguém preencheu o WhatsApp no formulário da Merovi e saiu antes de enviar.",
+    "",
+  ];
+
+  const addIfFilled = (label: string, value: string) => {
+    if (value && value.trim() !== "") lines.push(`${label}: ${value}`);
+  };
+
+  addIfFilled("Nome", state.nome);
+  addIfFilled("WhatsApp", state.whatsapp);
+  addIfFilled("E-mail", state.email);
+  addIfFilled("Empresa", state.empresa);
+  if (state.segmento) {
+    addIfFilled(
+      "Segmento",
+      resolveLabel(state.segmento, state.segmentoOutro, SEGMENTO_OPTIONS),
+    );
+  }
+  addIfFilled("Cidade", state.cidade);
+  if (state.estado) addIfFilled("Estado", resolveEstadoLabel(state.estado));
+  if (state.possuiSite) {
+    addIfFilled("Site atual", resolveLabel(state.possuiSite, "", SIM_NAO));
+  }
+  if (state.possuiDominio) {
+    addIfFilled(
+      "Domínio",
+      resolveLabel(state.possuiDominio, "", SIM_NAO_NAOSEI),
+    );
+  }
+  if (state.possuiGmb) {
+    addIfFilled(
+      "Google Meu Negócio",
+      resolveLabel(state.possuiGmb, "", SIM_NAO_NAOSEI),
+    );
+  }
+  if (state.objetivo) {
+    addIfFilled(
+      "Objetivo",
+      resolveLabel(state.objetivo, state.objetivoOutro, OBJETIVO_OPTIONS),
+    );
+  }
+  if (state.tipoSite) {
+    addIfFilled(
+      "Tipo de site",
+      resolveLabel(state.tipoSite, state.tipoSiteOutro, TIPO_SITE_OPTIONS),
+    );
+  }
+  if (state.estiloVisual) {
+    addIfFilled(
+      "Estilo visual",
+      resolveLabel(
+        state.estiloVisual,
+        state.estiloVisualOutro,
+        ESTILO_OPTIONS,
+      ),
+    );
+  }
+  addIfFilled("Cores preferidas", state.coresPreferidas);
+  addIfFilled("Sites de referência", state.sitesReferencia);
+  if (state.funcionalidades.length > 0) {
+    lines.push(
+      `Funcionalidades: ${resolveMultiLabel(state.funcionalidades, state.funcionalidadesOutro, FUNCIONALIDADES_OPTIONS)}`,
+    );
+  }
+  addIfFilled("Observações", state.observacoes);
+
+  return lines.join("\n");
+}
+
+/**
  * The full, organized summary of every answer — used as the e-mail body
  * sent to the Merovi inbox. The WhatsApp handoff uses WHATSAPP_MESSAGE
  * instead; this detailed version no longer goes there.
