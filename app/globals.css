@@ -44,55 +44,6 @@ body {
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35));
 }
 
-/* Hero background rays: jagged SVG lightning-bolt paths, pure SVG/CSS so
-   they cost nothing on the WebGL render budget the hero's 3D mark already
-   spends. Each flashes in and decays on its own random timer (see
-   HeroRays.tsx for the per-ray randomized delay/duration). */
-.hero-ray {
-  position: absolute;
-  overflow: visible;
-  opacity: 0;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1))
-    drop-shadow(0 0 22px rgba(255, 255, 255, 0.95))
-    drop-shadow(0 0 48px rgba(255, 255, 255, 0.7))
-    drop-shadow(0 0 90px rgba(255, 255, 255, 0.4));
-  animation-name: hero-ray-flash;
-  animation-timing-function: ease-out;
-  animation-iteration-count: infinite;
-  will-change: opacity;
-}
-
-@keyframes hero-ray-flash {
-  0% {
-    opacity: 0;
-  }
-  3% {
-    opacity: var(--ray-max-opacity, 0.9);
-  }
-  20% {
-    opacity: calc(var(--ray-max-opacity, 0.9) * 0.25);
-  }
-  45% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-/* Cheaper glow (fewer blur layers) and fewer rays on small screens: there's
-   no WebGL context at risk here, just filter/compositing cost. */
-@media (max-width: 640px) {
-  .hero-ray {
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 1))
-      drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
-  }
-
-  .hero-ray:nth-child(n + 5) {
-    display: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -101,10 +52,5 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .hero-ray {
-    animation: none !important;
-    opacity: 0.15;
   }
 }

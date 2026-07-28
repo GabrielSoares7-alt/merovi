@@ -2,16 +2,11 @@ import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { PRIMARY_CTA } from "@/lib/nav";
 import { HeroVisual } from "@/components/sections/HeroVisual";
-import { HeroRays } from "@/components/sections/HeroRays";
 
 export function Hero() {
   return (
-    <Section
-      reveal={false}
-      className="flex min-h-[80vh] items-center"
-      background={<HeroRays />}
-    >
-      <div className="grid items-center gap-12 lg:grid-cols-2">
+    <Section reveal={false} className="flex min-h-[80vh] items-center">
+      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
         <div className="flex flex-col items-start gap-6 text-left">
           <h1 className="glow-text text-3xl font-bold leading-tight md:text-5xl">
             Seu negócio já é bom. Falta parecer tão bom quanto é, online.
