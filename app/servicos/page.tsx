@@ -8,7 +8,7 @@ import { FinalCta } from "@/components/sections/FinalCta";
 export const metadata: Metadata = {
   title: "Serviços",
   description:
-    "Sites, landing pages, domínio, publicação, Google Meu Negócio e Google Ads: tudo que a Merovi entrega pra sua empresa ser encontrada e escolhida online.",
+    "Sites, landing pages, domínio e publicação: tudo que a Merovi entrega pra sua empresa ser encontrada e escolhida online.",
   alternates: { canonical: "/servicos" },
 };
 
@@ -57,26 +57,6 @@ const SERVICES: Service[] = [
       "Site publicado e no ar, com hospedagem configurada",
       "Estrutura técnica organizada: performance, responsividade, SEO básico",
       "Site pronto pra ser encontrado, não só pra existir",
-    ],
-  },
-  {
-    title: "Configuração e otimização do Google Meu Negócio",
-    benefit:
-      "Boa parte da busca por empresas locais acontece direto no Google Maps. Se o seu perfil não está completo e otimizado, esse cliente encontra o concorrente primeiro.",
-    deliverables: [
-      "Perfil completo no Google Meu Negócio, com todas as informações corretas",
-      "Categoria, fotos e horários configurados pra gerar mais confiança",
-      "Presença otimizada pra aparecer nas buscas locais",
-    ],
-  },
-  {
-    title: "Configuração e gerenciamento de campanhas no Google Ads",
-    benefit:
-      "Em vez de esperar o tempo necessário pra crescer organicamente, campanhas bem configuradas colocam sua empresa na frente de quem já está procurando o que você oferece, agora.",
-    deliverables: [
-      "Campanha configurada com foco no seu objetivo: ligações, mensagens ou visitas ao site",
-      "Acompanhamento e ajustes contínuos da campanha",
-      "Direcionamento de tráfego qualificado pro seu site ou landing page",
     ],
   },
 ];

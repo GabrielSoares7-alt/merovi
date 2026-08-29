@@ -26,7 +26,7 @@ const STEPS = [
     number: "04",
     title: "Publicação e configuração final",
     description:
-      "O site vai ao ar, e conforme o pacote contratado, configuramos domínio próprio e otimização no Google Meu Negócio/Google Ads.",
+      "O site vai ao ar, e conforme o pacote contratado, configuramos domínio próprio para você.",
   },
 ];
 

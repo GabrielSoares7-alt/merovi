@@ -14,11 +14,6 @@ const SERVICES = [
     description:
       "Páginas com um único objetivo: transformar quem visita em contato, com uma mensagem clara e um caminho direto até a ação.",
   },
-  {
-    title: "Google Ads e Google Meu Negócio",
-    description:
-      "Sua empresa aparecendo para quem já está procurando o que você oferece, no momento em que decide.",
-  },
 ];
 
 export function Services() {
@@ -29,12 +24,12 @@ export function Services() {
           O que a Merovi entrega
         </h2>
         <p className="mt-4 text-muted">
-          Três frentes que trabalham juntas para que seu negócio seja
+          Duas frentes que trabalham juntas para que seu negócio seja
           encontrado, e escolhido.
         </p>
       </ScrollReveal>
       <ScrollReveal
-        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-6 sm:grid-cols-2"
         stagger
         y={24}
       >

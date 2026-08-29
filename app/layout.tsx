@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s — Merovi",
   },
   description:
-    "A Merovi cria sites institucionais e landing pages de alta conversão, com gestão de Google Ads e Google Meu Negócio, para empresas que querem ser encontradas, e escolhidas, no Google.",
+    "A Merovi cria sites institucionais e landing pages de alta conversão para empresas que querem ser encontradas, e escolhidas, no Google.",
   openGraph: {
     type: "website",
     locale: "pt_BR",
@@ -47,7 +47,7 @@ const organizationJsonLd = {
   url: SITE_URL,
   logo: `${SITE_URL}/icon.png`,
   description:
-    "A Merovi cria sites institucionais e landing pages de alta conversão, com gestão de Google Ads e Google Meu Negócio, para empresas que querem ser encontradas, e escolhidas, no Google.",
+    "A Merovi cria sites institucionais e landing pages de alta conversão para empresas que querem ser encontradas, e escolhidas, no Google.",
   email: CONTACT.email,
   sameAs: [CONTACT.instagramHref],
   contactPoint: {
